@@ -26,18 +26,44 @@ public class charactersAdapter extends RecyclerView.Adapter<charactersAdapter.ch
         void onDelete(Character character);
     }
 
-    public ArrayList<Character> characters;
+    public ObservableArrayList<Character> characters;
     OnCharacterClick onCharacterClick;
     deleteCharacter onDeleteClick;
 
 
 
-    public charactersAdapter(ArrayList<Character> characters,
+    public charactersAdapter(ObservableArrayList<Character> characters,
                              OnCharacterClick characterClick,
                              deleteCharacter deleteCharacterClick) {
         this.characters = characters;
         this.onCharacterClick = characterClick;
         this.onDeleteClick = deleteCharacterClick;
+        this.characters.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<Character>>() {
+            @Override
+            public void onChanged(ObservableList<Character> sender) {
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onItemRangeChanged(ObservableList<Character> sender, int positionStart, int itemCount) {
+                notifyItemRangeChanged(positionStart, itemCount);
+            }
+
+            @Override
+            public void onItemRangeInserted(ObservableList<Character> sender, int positionStart, int itemCount) {
+                notifyItemRangeInserted(positionStart, itemCount);
+            }
+
+            @Override
+            public void onItemRangeMoved(ObservableList<Character> sender, int fromPosition, int toPosition, int itemCount) {
+                notifyItemMoved(fromPosition, toPosition);
+            }
+
+            @Override
+            public void onItemRangeRemoved(ObservableList<Character> sender, int positionStart, int itemCount) {
+                notifyItemRangeRemoved(positionStart, itemCount);
+            }
+        });
     }
 
     @NonNull

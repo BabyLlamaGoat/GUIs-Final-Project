@@ -11,10 +11,6 @@ import java.util.List;
 @Dao
 public interface DiceSetDao {
 
-    @Transaction
-    @Query("SELECT * FROM character")
-    List<CharacterWithDiceSets> getCharactersWithDiceSets();
-
     @Query("SELECT * FROM diceset WHERE characterID IS :characterId")
     List<DiceSet> getACharacterDiceSets(long characterId);
 

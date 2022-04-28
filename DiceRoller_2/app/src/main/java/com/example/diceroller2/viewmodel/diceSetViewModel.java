@@ -3,11 +3,9 @@ package com.example.diceroller2.viewmodel;
 import androidx.databinding.ObservableArrayList;
 import androidx.lifecycle.ViewModel;
 
-import com.example.diceroller2.model.CharacterWithDiceSets;
 import com.example.diceroller2.model.DiceSet;
 import com.example.diceroller2.repository.repository;
 
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -17,7 +15,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class diceSetViewModel extends ViewModel {
 
     repository repository;
-    CharacterWithDiceSets characterWithDiceSets;
     ObservableArrayList<DiceSet> diceSets = new ObservableArrayList<>();
     long newestDiceSetID;
     DiceSet newestDiceSet;
@@ -48,6 +45,6 @@ public class diceSetViewModel extends ViewModel {
     }
 
     public void saveDiceSet(long diceSetID, String title, String descriptor) {
-//        Should create the dice and then save it again.
+
     }
 }

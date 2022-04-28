@@ -28,7 +28,7 @@ public class characterViewModel extends ViewModel {
 
     }
 
-    public ArrayList<Character> getCharacters() {
+    public ObservableArrayList<Character> getCharacters() {
         this.characters.clear();
         this.repository.getCharacters(characters -> {
             this.characters.addAll(characters);

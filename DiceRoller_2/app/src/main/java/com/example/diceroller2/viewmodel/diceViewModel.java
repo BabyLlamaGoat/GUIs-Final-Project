@@ -1,11 +1,9 @@
 package com.example.diceroller2.viewmodel;
 
 import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModel;
 
 import com.example.diceroller2.model.Dice;
-import com.example.diceroller2.model.DiceSetWithDice;
 import com.example.diceroller2.repository.repository;
 
 import javax.inject.Inject;

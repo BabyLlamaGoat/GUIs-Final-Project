@@ -7,10 +7,8 @@ import androidx.room.Room;
 
 import com.example.diceroller2.model.AppDatabase;
 import com.example.diceroller2.model.Character;
-import com.example.diceroller2.model.CharacterWithDiceSets;
 import com.example.diceroller2.model.Dice;
 import com.example.diceroller2.model.DiceSet;
-import com.example.diceroller2.model.DiceSetWithDice;
 
 import java.util.ArrayList;
 
