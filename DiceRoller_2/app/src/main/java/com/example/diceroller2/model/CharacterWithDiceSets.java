@@ -14,4 +14,12 @@ public class CharacterWithDiceSets {
             entityColumn = "diceSetID"
     )
     public List<DiceSet> diceSets;
+
+    @Override
+    public String toString() {
+        return "CharacterWithDiceSets{" +
+                "character=" + character +
+                ", diceSets=" + diceSets +
+                '}';
+    }
 }

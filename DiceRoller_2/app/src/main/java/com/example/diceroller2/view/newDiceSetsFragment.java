@@ -29,6 +29,7 @@ public class newDiceSetsFragment extends Fragment {
         Bundle bundle = getArguments();
         long characterID = (long) bundle.get("characterID");
         long diceSetID = (long) bundle.get("diceSetID");
+        System.out.println("DiceSetID in newDiceSetsFragment is " + diceSetID);
 
 
         diceViewModel diceViewModel = new ViewModelProvider(this).get(diceViewModel.class);

@@ -24,8 +24,8 @@ public class repository {
 
     AppDatabase db;
     ArrayList<Character> characters;
-    CharacterWithDiceSets CharacterWithDiceSets;
-    DiceSetWithDice diceSetWithDice;
+    ArrayList<DiceSet> DiceSet;
+    ArrayList<Dice> dice;
     private Handler handler = new Handler();
 
     @Inject
@@ -69,10 +69,13 @@ public class repository {
     public void addDice(long diceSetID, addDiceCallback callback) {
         Dice newDice = new Dice();
         newDice.diceSetID = diceSetID;
+        System.out.println("DiceSetID is " + diceSetID);
         System.out.println(diceSetID);
         new Thread(() ->{
             newDice.diceID = db.getDiceDao().addDice(newDice);
+            System.out.println("Creating new dice " + newDice);
             handler.post(() ->{
+                System.out.println("Callback with new dice " + newDice);
                 callback.call(newDice);
             });
         }).start();
@@ -86,6 +89,7 @@ public class repository {
         diceSet.characterID = characterID;
         new Thread(() ->{
             diceSet.diceSetID = db.getDiceSetDao().createNewDiceSet(diceSet);
+            System.out.println("Creating new dice set " + diceSet);
             handler.post(() ->{
                 callback.call(diceSet);
             });
@@ -116,32 +120,29 @@ public class repository {
     }
 
     public interface DiceSetCallback {
-        void call(CharacterWithDiceSets characterWithDiceSets);
+        void call(ArrayList<DiceSet> diceSets);
     }
 
     public void getDiceSets(long characterId, DiceSetCallback callback){
-        if (CharacterWithDiceSets == null){
-            new Thread(()->{
-                CharacterWithDiceSets = (CharacterWithDiceSets) db.getDiceSetDao().getCharacterWithDiceSets();
-                handler.post(() ->{
-                    callback.call(CharacterWithDiceSets);
-                });
-            }).start();
-        }
+        new Thread(()->{
+            DiceSet = (ArrayList<DiceSet>) db.getDiceSetDao().getACharacterDiceSets(characterId);
+            handler.post(() ->{
+                callback.call(DiceSet);
+            });
+        }).start();
+
     }
 
     public interface DiceCallBack {
-        void call(DiceSetWithDice diceSetWithDice);
+        void call(ArrayList<Dice> Dice);
     }
     public void getDice(long diceSetId, DiceCallBack callBack){
-        if (diceSetWithDice == null){
-            new Thread(() ->{
-                diceSetWithDice = (DiceSetWithDice) db.getDiceDao().getDiceSetWithDice();
-                handler.post(() ->{
-                    callBack.call(diceSetWithDice);
-                });
-            }).start();
-        }
+        new Thread(() ->{
+            dice = (ArrayList<Dice>) db.getDiceDao().getADiceSetDice(diceSetId);
+            handler.post(() ->{
+                callBack.call(dice);
+            });
+        }).start();
     }
 
 }

@@ -13,5 +13,11 @@ public class Character {
     @ColumnInfo
     public String name;
 
-
+    @Override
+    public String toString() {
+        return "Character{" +
+                "characterID=" + characterID +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -45,9 +45,10 @@ public class diceSetsFragment extends Fragment {
 
         view.findViewById(R.id.newDiceSet).setOnClickListener(button ->{
             System.out.println("Adding a new DiceSet");
-            long newDiceSetID = diceSetViewModel.createNewDiceSet(characterId);
-            System.out.println("The new dice set id is " + newDiceSetID);
-            bundle.putLong("diceSetID", newDiceSetID);
+            long diceSetID = diceSetViewModel.createNewDiceSet(characterId);
+            System.out.println("The new dice set id in diceSetsFragment is " + diceSetID);
+            bundle.putLong("diceSetID", diceSetID);
+
             NavHostFragment.findNavController(this).navigate(R.id.action_diceSetFragment_to_newDiceSetsFragment,bundle);
         });
 

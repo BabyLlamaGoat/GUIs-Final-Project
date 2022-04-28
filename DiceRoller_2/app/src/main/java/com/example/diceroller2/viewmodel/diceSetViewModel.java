@@ -20,6 +20,7 @@ public class diceSetViewModel extends ViewModel {
     CharacterWithDiceSets characterWithDiceSets;
     ObservableArrayList<DiceSet> diceSets = new ObservableArrayList<>();
     long newestDiceSetID;
+    DiceSet newestDiceSet;
 
     @Inject
     public diceSetViewModel(repository repository){
@@ -29,20 +30,21 @@ public class diceSetViewModel extends ViewModel {
 
     public ObservableArrayList<DiceSet> getDiceSets(long characterId) {
         this.diceSets.clear();
-        this.repository.getDiceSets(characterId, characterWithDiceSets ->{
-            this.characterWithDiceSets = characterWithDiceSets;
-            this.diceSets.addAll(characterWithDiceSets.diceSets);
+        this.repository.getDiceSets(characterId, DiceSets ->{
+            diceSetViewModel.this.diceSets.addAll(DiceSets);
         });
         return this.diceSets;
 
     }
 
+
     public long createNewDiceSet(long characterID) {
         repository.createNewDiceSet(characterID,(newDiceSet) ->{
             diceSets.add(newDiceSet);
-            this.newestDiceSetID = newDiceSet.diceSetID;
+            diceSetViewModel.this.newestDiceSetID = newDiceSet.diceSetID;
+            this.newestDiceSet = newDiceSet;
         });
-        return this.newestDiceSetID;
+        return newestDiceSetID;
     }
 
     public void saveDiceSet(long diceSetID, String title, String descriptor) {

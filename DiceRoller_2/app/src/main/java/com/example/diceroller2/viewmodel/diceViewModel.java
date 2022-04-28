@@ -1,6 +1,7 @@
 package com.example.diceroller2.viewmodel;
 
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModel;
 
 import com.example.diceroller2.model.Dice;
@@ -15,7 +16,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class diceViewModel extends ViewModel {
 
     repository repository;
-    DiceSetWithDice diceSetWithDice;
     ObservableArrayList<Dice> dice = new ObservableArrayList<>();
 
     @Inject
@@ -26,16 +26,18 @@ public class diceViewModel extends ViewModel {
 
     public ObservableArrayList<Dice> getDiceList(long diceSetID) {
         this.dice.clear();
-        this.repository.getDice(diceSetID, diceSetWithDice ->{
-            this.diceSetWithDice = diceSetWithDice;
-            this.dice.addAll(diceSetWithDice.dice);
+        this.repository.getDice(diceSetID, Dice ->{
+            diceViewModel.this.dice.addAll(Dice);
         });
         return this.dice;
     }
 
     public void addDice(long diceSetID) {
+        System.out.println("View model DiceSetID before repo is " + diceSetID);
         repository.addDice(diceSetID, newDice ->{
+            System.out.println("View model adding new dice in callback " + newDice);
             dice.add(newDice);
+            System.out.println(dice.toString());
         });
 
     }

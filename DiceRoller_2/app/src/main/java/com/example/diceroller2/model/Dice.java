@@ -19,5 +19,13 @@ public class Dice {
     @ColumnInfo
     public int count;
 
-
+    @Override
+    public String toString() {
+        return "Dice{" +
+                "diceID=" + diceID +
+                ", diceSetID=" + diceSetID +
+                ", sides=" + sides +
+                ", count=" + count +
+                '}';
+    }
 }

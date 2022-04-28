@@ -19,4 +19,13 @@ public class DiceSet {
     @ColumnInfo
     public String descriptor;
 
+    @Override
+    public String toString() {
+        return "DiceSet{" +
+                "diceSetID=" + diceSetID +
+                ", characterID=" + characterID +
+                ", name='" + name + '\'' +
+                ", descriptor='" + descriptor + '\'' +
+                '}';
+    }
 }
