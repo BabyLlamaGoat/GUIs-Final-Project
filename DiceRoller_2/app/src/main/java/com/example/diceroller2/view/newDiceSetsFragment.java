@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +47,7 @@ public class newDiceSetsFragment extends Fragment {
 
         view.findViewById(R.id.saveDiceSetButton).setOnClickListener(button ->{
             diceSetViewModel.saveDiceSet(diceSetID, setTitle.getText().toString(), setDescriptor.getText().toString());
+            NavHostFragment.findNavController(this).popBackStack();
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.diceRecyclerView);

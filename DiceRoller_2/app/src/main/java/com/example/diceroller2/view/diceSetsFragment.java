@@ -38,7 +38,9 @@ public class diceSetsFragment extends Fragment {
                 (rollDiceSet) ->{
                     System.out.println("rolling dice set");
                 }, (editDiceSet) ->{
+            bundle.putLong("diceSetID", editDiceSet.diceSetID);
             System.out.println("Edit the dice");
+            NavHostFragment.findNavController(this).navigate(R.id.action_diceSetFragment_to_newDiceSetsFragment,bundle);
 
         }));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -28,8 +28,10 @@ public class diceSetViewModel extends ViewModel {
     public ObservableArrayList<DiceSet> getDiceSets(long characterId) {
         this.diceSets.clear();
         this.repository.getDiceSets(characterId, DiceSets ->{
+            System.out.println("DiceSet in Callbark are " + DiceSets);
             diceSetViewModel.this.diceSets.addAll(DiceSets);
         });
+        System.out.println("DiceSets in ViewModel are  " + diceSets);
         return this.diceSets;
 
     }
@@ -45,6 +47,14 @@ public class diceSetViewModel extends ViewModel {
     }
 
     public void saveDiceSet(long diceSetID, String title, String descriptor) {
-
+        System.err.printf("DiceSetID = %d\nTitle = %s\nDescriptor = %s\n", diceSetID, title, descriptor);
+        for (DiceSet diceSet :
+                diceSets) {
+            if (diceSet.diceSetID == diceSetID){
+                diceSet.name = title;
+                diceSet.descriptor = descriptor;
+                repository.saveDiceSet(diceSet);
+            }
+        }
     }
 }

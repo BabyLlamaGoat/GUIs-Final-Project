@@ -95,8 +95,11 @@ public class repository {
 
     }
 
-    public void saveDiceSet(long diceSetID, String title, String descriptor) {
-
+    public void saveDiceSet(DiceSet updatedDiceSet) {
+        System.out.println("Saving dice");
+        new Thread(() ->{
+            db.getDiceSetDao().updateDiceSet(updatedDiceSet);
+        }).start();
     }
 
 
@@ -135,9 +138,11 @@ public class repository {
         void call(ArrayList<Dice> Dice);
     }
     public void getDice(long diceSetId, DiceCallBack callBack){
+        System.out.println("Getting the diceList for " + diceSetId);
         new Thread(() ->{
             dice = (ArrayList<Dice>) db.getDiceDao().getADiceSetDice(diceSetId);
             handler.post(() ->{
+                System.out.println("Dice list in repo " + dice.toString());
                 callBack.call(dice);
             });
         }).start();
