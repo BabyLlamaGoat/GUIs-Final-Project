@@ -36,7 +36,7 @@ public class diceSetsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.diceSetRecyclerView);
         recyclerView.setAdapter(new diceSetsAdapter(diceSetViewModel.getDiceSets(characterId),
                 (rollDiceSet) ->{
-                    System.out.println("rolling dice set");
+//            TODO finish the rolling portion
                 }, (editDiceSet) ->{
             bundle.putLong("diceSetID", editDiceSet.diceSetID);
             bundle.putString("name", editDiceSet.name);

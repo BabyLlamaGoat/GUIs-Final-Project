@@ -31,14 +31,11 @@ public class newDiceSetsFragment extends Fragment {
         Bundle bundle = getArguments();
         long characterID = (long) bundle.get("characterID");
         long diceSetID = (long) bundle.get("diceSetID");
-        System.out.println("DiceSetID in newDiceSetsFragment is " + diceSetID);
-
 
         diceViewModel diceVM = new ViewModelProvider(this).get(diceViewModel.class);
         diceSetViewModel diceSetVM = new ViewModelProvider(this).get(diceSetViewModel.class);
 
         view.findViewById(R.id.newDiceButton).setOnClickListener(button ->{
-            System.out.println("Adding new Dice");
             System.out.println(diceSetID);
             diceVM.addDice(diceSetID);
         });
@@ -50,7 +47,12 @@ public class newDiceSetsFragment extends Fragment {
         setDescriptor.setText((String) bundle.get("descriptor"));
 
         view.findViewById(R.id.saveDiceSetButton).setOnClickListener(button ->{
-            diceSetVM.saveDiceSet(diceSetID, setTitle.getText().toString(), setDescriptor.getText().toString());
+
+            diceSetVM.saveDiceSet(
+                    diceSetID,
+                    characterID,
+                    setTitle.getText().toString(),
+                    setDescriptor.getText().toString());
             NavHostFragment.findNavController(this).popBackStack();
         });
 

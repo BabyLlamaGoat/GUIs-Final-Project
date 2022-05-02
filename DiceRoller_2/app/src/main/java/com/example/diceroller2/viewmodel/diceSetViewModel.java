@@ -38,22 +38,17 @@ public class diceSetViewModel extends ViewModel {
         });
     }
 
-    public void saveDiceSet(long diceSetID, String title, String descriptor) {
-        System.err.printf("DiceSetID = %d\nTitle = %s\nDescriptor = %s\n", diceSetID, title, descriptor);
-        for (DiceSet diceSet :
-                diceSets) {
-            if (diceSet.diceSetID == diceSetID){
-                diceSet.name = title;
-                diceSet.descriptor = descriptor;
-                repository.saveDiceSet(diceSet);
-            }
-        }
+    public void saveDiceSet(long diceSetID, long characterID, String title, String descriptor) {
+        DiceSet editedDiceSet = new DiceSet();
+        editedDiceSet.diceSetID = diceSetID;
+        editedDiceSet.characterID = characterID;
+        editedDiceSet.name = title;
+        editedDiceSet.descriptor = descriptor;
+        repository.saveDiceSet(editedDiceSet);
     }
 
     public void deleteDiceSet(DiceSet deletedSet) {
-        System.out.println("Before removing DiceSet " + diceSets.toString());
         this.diceSets.remove(deletedSet);
-        System.out.println("After remove DiceSet " + diceSets.toString());
         this.repository.deleteDiceSet(deletedSet);
     }
 }

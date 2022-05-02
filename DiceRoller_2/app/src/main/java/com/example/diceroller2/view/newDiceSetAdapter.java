@@ -33,7 +33,6 @@ public class newDiceSetAdapter extends RecyclerView.Adapter<newDiceSetAdapter.ne
         this.dice = newDiceList;
         this.viewModel = diceViewModel;
         this.onDeleteClick = onDeleteDice;
-        System.out.println("DiceList in Adaptor is " + dice.toString());
         dice.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<Dice>>() {
             @Override
             public void onChanged(ObservableList<Dice> sender) {

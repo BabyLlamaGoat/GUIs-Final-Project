@@ -89,13 +89,11 @@ public class diceSetsAdapter extends RecyclerView.Adapter<diceSetsAdapter.diceSe
 
         Button rollButton = holder.itemView.findViewById(R.id.rollSetButton);
         rollButton.setOnClickListener(roll ->{
-            System.out.println("rolled dice set");
             rollClickListener.onClick(diceSet);
         });
 
         Button editButton = holder.itemView.findViewById(R.id.editSetButton);
         editButton.setOnClickListener(edit ->{
-            System.out.println("editing dice set");
             editClickListener.onClick(diceSet);
         });
 

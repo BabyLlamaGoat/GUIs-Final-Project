@@ -113,7 +113,6 @@ public class repository {
     }
 
     public void saveDiceSet(DiceSet updatedDiceSet) {
-        System.out.println("Saving dice");
         new Thread(() ->{
             db.getDiceSetDao().updateDiceSet(updatedDiceSet);
         }).start();
