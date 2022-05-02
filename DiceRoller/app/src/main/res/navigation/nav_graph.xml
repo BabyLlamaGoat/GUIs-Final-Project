@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/charactersFragment">
+    <fragment
+        android:id="@+id/charactersFragment"
+        android:name="com.example.diceroller2.view.charactersFragment"
+        android:label="charactersFragment" >
+        <action
+            android:id="@+id/action_charactersFragment_to_newCharacterFragment"
+            app:destination="@id/newCharacterFragment" />
+        <action
+            android:id="@+id/action_charactersFragment_to_diceSetFragment"
+            app:destination="@id/diceSetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newCharacterFragment"
+        android:name="com.example.diceroller2.view.newCharacterFragment"
+        android:label="newCharacterFragment" />
+    <fragment
+        android:id="@+id/diceSetFragment"
+        android:name="com.example.diceroller2.view.diceSetsFragment"
+        android:label="diceSetFragment" >
+        <action
+            android:id="@+id/action_diceSetFragment_to_newDiceSetsFragment"
+            app:destination="@id/newDiceSetsFragment" />
+        <action
+            android:id="@+id/action_diceSetFragment_to_rolledDiceSets"
+            app:destination="@id/rolledDiceSets" />
+    </fragment>
+    <fragment
+        android:id="@+id/newDiceSetsFragment"
+        android:name="com.example.diceroller2.view.newDiceSetsFragment"
+        android:label="newDiceSetsFragment" />
+    <fragment
+        android:id="@+id/rolledDiceSets"
+        android:name="com.example.diceroller2.view.rolledDiceSets"
+        android:label="rolledDiceSets" />
+</navigation>
