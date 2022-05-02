@@ -33,7 +33,6 @@ public class repository {
 
 
     public void saveNewCharacter(String name) {
-        System.out.println("Saving newCharacter " + name);
         new Thread(()->{
             Character newCharacter = new Character();
             newCharacter.name = name;
@@ -60,6 +59,20 @@ public class repository {
         return "Character Doesn't Exist";
     }
 
+    public void deleteDie(Dice deletedDie) {
+        dice.remove(deletedDie);
+        new Thread(() ->{
+            db.getDiceDao().deleteDie(deletedDie);
+        }).start();
+    }
+
+    public void deleteDiceSet(DiceSet deletedSet) {
+        DiceSet.remove(deletedSet);
+        new Thread(() ->{
+            db.getDiceSetDao().deleteDiceSet(deletedSet);
+        }).start();
+    }
+
     public interface addDiceCallback{
         void call(Dice newDice);
     }
@@ -67,13 +80,10 @@ public class repository {
     public void addDice(long diceSetID, addDiceCallback callback) {
         Dice newDice = new Dice();
         newDice.diceSetID = diceSetID;
-        System.out.println("DiceSetID is " + diceSetID);
         System.out.println(diceSetID);
         new Thread(() ->{
             newDice.diceID = db.getDiceDao().addDice(newDice);
-            System.out.println("Creating new dice " + newDice);
             handler.post(() ->{
-                System.out.println("Callback with new dice " + newDice);
                 callback.call(newDice);
             });
         }).start();
@@ -85,9 +95,10 @@ public class repository {
     public void createNewDiceSet(long characterID, newDiceSetCallback callback) {
         DiceSet diceSet = new DiceSet();
         diceSet.characterID = characterID;
+        diceSet.name = "New Dice Set";
+        diceSet.descriptor = "Edit the Dice Set to add Dice";
         new Thread(() ->{
             diceSet.diceSetID = db.getDiceSetDao().createNewDiceSet(diceSet);
-            System.out.println("Creating new dice set " + diceSet);
             handler.post(() ->{
                 callback.call(diceSet);
             });
@@ -138,11 +149,9 @@ public class repository {
         void call(ArrayList<Dice> Dice);
     }
     public void getDice(long diceSetId, DiceCallBack callBack){
-        System.out.println("Getting the diceList for " + diceSetId);
         new Thread(() ->{
             dice = (ArrayList<Dice>) db.getDiceDao().getADiceSetDice(diceSetId);
             handler.post(() ->{
-                System.out.println("Dice list in repo " + dice.toString());
                 callBack.call(dice);
             });
         }).start();

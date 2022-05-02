@@ -39,19 +39,18 @@ public class diceSetsFragment extends Fragment {
                     System.out.println("rolling dice set");
                 }, (editDiceSet) ->{
             bundle.putLong("diceSetID", editDiceSet.diceSetID);
+            bundle.putString("name", editDiceSet.name);
+            bundle.putString("descriptor", editDiceSet.descriptor);
             System.out.println("Edit the dice");
             NavHostFragment.findNavController(this).navigate(R.id.action_diceSetFragment_to_newDiceSetsFragment,bundle);
-
-        }));
+            }, (deletedSet) ->{
+            diceSetViewModel.deleteDiceSet(deletedSet);
+            }));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         view.findViewById(R.id.newDiceSet).setOnClickListener(button ->{
-            System.out.println("Adding a new DiceSet");
-            long diceSetID = diceSetViewModel.createNewDiceSet(characterId);
-            System.out.println("The new dice set id in diceSetsFragment is " + diceSetID);
-            bundle.putLong("diceSetID", diceSetID);
+            diceSetViewModel.createNewDiceSet(characterId);
 
-            NavHostFragment.findNavController(this).navigate(R.id.action_diceSetFragment_to_newDiceSetsFragment,bundle);
         });
 
 

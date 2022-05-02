@@ -12,6 +12,7 @@ import androidx.databinding.ObservableList;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diceroller2.R;
+import com.example.diceroller2.model.Dice;
 import com.example.diceroller2.model.DiceSet;
 
 import java.util.ArrayList;
@@ -25,16 +26,23 @@ public class diceSetsAdapter extends RecyclerView.Adapter<diceSetsAdapter.diceSe
         void onClick(DiceSet diceSet);
     }
 
+    public interface onDeleteSet{
+        void onClick(DiceSet diceSet);
+    }
+
     private ObservableArrayList<DiceSet> diceSets;
     OnRollClick rollClickListener;
     OnEditClick editClickListener;
+    onDeleteSet deleteClickListener;
 
     public diceSetsAdapter(ObservableArrayList<DiceSet> diceSets,
                            OnRollClick rollClickListener,
-                           OnEditClick editClickListener){
+                           OnEditClick editClickListener,
+                           onDeleteSet deleteClickListener){
         this.diceSets = diceSets;
         this.rollClickListener = rollClickListener;
         this.editClickListener = editClickListener;
+        this.deleteClickListener = deleteClickListener;
         this.diceSets.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<DiceSet>>() {
             @Override
             public void onChanged(ObservableList<DiceSet> sender) {
@@ -89,6 +97,11 @@ public class diceSetsAdapter extends RecyclerView.Adapter<diceSetsAdapter.diceSe
         editButton.setOnClickListener(edit ->{
             System.out.println("editing dice set");
             editClickListener.onClick(diceSet);
+        });
+
+        Button deleteButton = holder.itemView.findViewById(R.id.deleteDiceSet);
+        deleteButton.setOnClickListener(delete ->{
+            deleteClickListener.onClick(diceSet);
         });
 
 

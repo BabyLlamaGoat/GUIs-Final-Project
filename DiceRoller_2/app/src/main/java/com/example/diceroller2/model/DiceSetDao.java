@@ -1,6 +1,7 @@
 package com.example.diceroller2.model;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -20,4 +21,6 @@ public interface DiceSetDao {
     @Update
     void updateDiceSet(DiceSet diceSet);
 
+    @Delete
+    void deleteDiceSet(DiceSet deletedSet);
 }

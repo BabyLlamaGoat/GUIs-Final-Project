@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diceroller2.R;
+import com.example.diceroller2.model.DiceSet;
 import com.example.diceroller2.viewmodel.diceSetViewModel;
 import com.example.diceroller2.viewmodel.diceViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,8 +43,11 @@ public class newDiceSetsFragment extends Fragment {
             diceVM.addDice(diceSetID);
         });
 
+
         EditText setTitle = view.findViewById(R.id.setTitleInput);
+        setTitle.setText((String) bundle.get("name"));
         EditText setDescriptor = view.findViewById(R.id.setDescriptorInput);
+        setDescriptor.setText((String) bundle.get("descriptor"));
 
         view.findViewById(R.id.saveDiceSetButton).setOnClickListener(button ->{
             diceSetVM.saveDiceSet(diceSetID, setTitle.getText().toString(), setDescriptor.getText().toString());
@@ -51,7 +55,10 @@ public class newDiceSetsFragment extends Fragment {
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.diceRecyclerView);
-        recyclerView.setAdapter(new newDiceSetAdapter(diceVM.getDiceList(diceSetID), diceVM));
+        recyclerView.setAdapter(new newDiceSetAdapter(diceVM.getDiceList(diceSetID), diceVM,
+                deletedDie ->{
+            diceVM.deleteDie(deletedDie);
+                }));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 

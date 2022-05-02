@@ -16,8 +16,6 @@ public class diceSetViewModel extends ViewModel {
 
     repository repository;
     ObservableArrayList<DiceSet> diceSets = new ObservableArrayList<>();
-    long newestDiceSetID;
-    DiceSet newestDiceSet;
 
     @Inject
     public diceSetViewModel(repository repository){
@@ -28,22 +26,16 @@ public class diceSetViewModel extends ViewModel {
     public ObservableArrayList<DiceSet> getDiceSets(long characterId) {
         this.diceSets.clear();
         this.repository.getDiceSets(characterId, DiceSets ->{
-            System.out.println("DiceSet in Callbark are " + DiceSets);
             diceSetViewModel.this.diceSets.addAll(DiceSets);
         });
-        System.out.println("DiceSets in ViewModel are  " + diceSets);
         return this.diceSets;
     }
 
 
-    public long createNewDiceSet(long characterID) {
+    public void createNewDiceSet(long characterID) {
         repository.createNewDiceSet(characterID,(newDiceSet) ->{
             diceSets.add(newDiceSet);
-            diceSetViewModel.this.newestDiceSetID = newDiceSet.diceSetID;
-            this.newestDiceSet = newDiceSet;
-            System.out.println("CreateNewDiceSet diceSetViewModel the correct id is " + newDiceSet.diceSetID);
         });
-        return newestDiceSetID;
     }
 
     public void saveDiceSet(long diceSetID, String title, String descriptor) {
@@ -56,5 +48,12 @@ public class diceSetViewModel extends ViewModel {
                 repository.saveDiceSet(diceSet);
             }
         }
+    }
+
+    public void deleteDiceSet(DiceSet deletedSet) {
+        System.out.println("Before removing DiceSet " + diceSets.toString());
+        this.diceSets.remove(deletedSet);
+        System.out.println("After remove DiceSet " + diceSets.toString());
+        this.repository.deleteDiceSet(deletedSet);
     }
 }

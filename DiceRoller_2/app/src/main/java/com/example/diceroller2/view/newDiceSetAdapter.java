@@ -19,12 +19,20 @@ import com.example.diceroller2.viewmodel.diceViewModel;
 
 public class newDiceSetAdapter extends RecyclerView.Adapter<newDiceSetAdapter.newDiceSetViewHolder> {
 
-    ObservableArrayList<Dice> dice = new ObservableArrayList<>();
-    diceViewModel viewModel;
+    public interface onDeleteDice{
+        void onDelete(Dice dice);
+    }
 
-    public newDiceSetAdapter(ObservableArrayList<Dice> newDiceList, diceViewModel diceViewModel) {
-        this.dice.addAll(newDiceList);
+    ObservableArrayList<Dice> dice;
+    diceViewModel viewModel;
+    onDeleteDice onDeleteClick;
+
+    public newDiceSetAdapter(ObservableArrayList<Dice> newDiceList,
+                             diceViewModel diceViewModel,
+                             onDeleteDice onDeleteDice) {
+        this.dice = newDiceList;
         this.viewModel = diceViewModel;
+        this.onDeleteClick = onDeleteDice;
         System.out.println("DiceList in Adaptor is " + dice.toString());
         dice.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<Dice>>() {
             @Override
@@ -64,6 +72,11 @@ public class newDiceSetAdapter extends RecyclerView.Adapter<newDiceSetAdapter.ne
     @Override
     public void onBindViewHolder(@NonNull newDiceSetViewHolder holder, int position) {
         Dice die = dice.get(position);
+
+        holder.itemView.findViewById(R.id.removeDiceButton).setOnClickListener(button ->{
+            onDeleteClick.onDelete(die);
+        });
+
         EditText numberOfSides = holder.itemView.findViewById(R.id.numberOfSidesInput);
         EditText numberOfDice = holder.itemView.findViewById(R.id.numberOfDiceInput);
 
@@ -111,7 +124,7 @@ public class newDiceSetAdapter extends RecyclerView.Adapter<newDiceSetAdapter.ne
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dice.size();
     }
 
     public class newDiceSetViewHolder extends RecyclerView.ViewHolder{
