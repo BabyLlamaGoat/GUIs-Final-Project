@@ -3,8 +3,10 @@ package com.example.diceroller2.view;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -14,8 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diceroller2.R;
+import com.example.diceroller2.model.Dice;
 import com.example.diceroller2.viewmodel.characterViewModel;
 import com.example.diceroller2.viewmodel.diceSetViewModel;
+import com.example.diceroller2.viewmodel.diceViewModel;
+
+import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -32,11 +38,16 @@ public class diceSetsFragment extends Fragment {
         System.out.println(characterId);
 
         diceSetViewModel diceSetViewModel = new ViewModelProvider(this).get(diceSetViewModel.class);
+        diceViewModel diceVM = new ViewModelProvider(this).get(diceViewModel.class);
+
 
         RecyclerView recyclerView = view.findViewById(R.id.diceSetRecyclerView);
         recyclerView.setAdapter(new diceSetsAdapter(diceSetViewModel.getDiceSets(characterId),
                 (rollDiceSet) ->{
-//            TODO finish the rolling portion
+
+                    bundle.putString("name", rollDiceSet.name);
+                    bundle.putLong("diceSetID", rollDiceSet.diceSetID);
+                    NavHostFragment.findNavController(this).navigate(R.id.action_diceSetFragment_to_rolledDiceSets,bundle);
                 }, (editDiceSet) ->{
             bundle.putLong("diceSetID", editDiceSet.diceSetID);
             bundle.putString("name", editDiceSet.name);

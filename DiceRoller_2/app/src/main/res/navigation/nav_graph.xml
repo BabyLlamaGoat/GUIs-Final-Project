@@ -26,9 +26,16 @@
         <action
             android:id="@+id/action_diceSetFragment_to_newDiceSetsFragment"
             app:destination="@id/newDiceSetsFragment" />
+        <action
+            android:id="@+id/action_diceSetFragment_to_rolledDiceSets"
+            app:destination="@id/rolledDiceSets" />
     </fragment>
     <fragment
         android:id="@+id/newDiceSetsFragment"
         android:name="com.example.diceroller2.view.newDiceSetsFragment"
         android:label="newDiceSetsFragment" />
+    <fragment
+        android:id="@+id/rolledDiceSets"
+        android:name="com.example.diceroller2.view.rolledDiceSets"
+        android:label="rolledDiceSets" />
 </navigation>
