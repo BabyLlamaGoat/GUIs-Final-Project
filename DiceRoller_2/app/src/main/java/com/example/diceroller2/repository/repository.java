@@ -73,6 +73,12 @@ public class repository {
         }).start();
     }
 
+    public void updateDieDiceNumber(Dice die) {
+        new Thread(() ->{
+            db.getDiceDao().updateDie(die);
+        }).start();
+    }
+
     public interface addDiceCallback{
         void call(Dice newDice);
     }

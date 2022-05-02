@@ -42,4 +42,8 @@ public class diceViewModel extends ViewModel {
         dice.remove(deletedDie);
         repository.deleteDie(deletedDie);
     }
+
+    public void updateDie(Dice die) {
+        repository.updateDieDiceNumber(die);
+    }
 }

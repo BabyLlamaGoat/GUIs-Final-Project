@@ -80,7 +80,6 @@ public class newDiceSetAdapter extends RecyclerView.Adapter<newDiceSetAdapter.ne
         EditText numberOfSides = holder.itemView.findViewById(R.id.numberOfSidesInput);
         EditText numberOfDice = holder.itemView.findViewById(R.id.numberOfDiceInput);
 
-        long dieID = die.diceID;
 
         numberOfSides.removeTextChangedListener(holder.textSidesWatcher);
         numberOfDice.removeTextChangedListener(holder.textDiceWatcher);
@@ -93,7 +92,10 @@ public class newDiceSetAdapter extends RecyclerView.Adapter<newDiceSetAdapter.ne
 
             @Override
             public void afterTextChanged(Editable editable) {
-//                viewModel.updateDieDiceNumber(dieID, editable);
+                try {
+                    die.count = Integer.parseInt(editable.toString());
+                    viewModel.updateDie(die);
+                } catch (Exception ignored){}
             }
         };
 
@@ -110,7 +112,10 @@ public class newDiceSetAdapter extends RecyclerView.Adapter<newDiceSetAdapter.ne
 
             @Override
             public void afterTextChanged(Editable editable) {
-//                viewModel.updateDieSides(dieID, editable);
+                try {
+                    die.sides = Integer.parseInt(editable.toString());
+                    viewModel.updateDie(die);
+                } catch (Exception ignored){}
             }
         };
 

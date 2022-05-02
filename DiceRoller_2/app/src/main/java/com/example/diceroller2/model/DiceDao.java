@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,4 +21,7 @@ public interface DiceDao {
 
     @Delete
     void deleteDie(Dice deletedDie);
+
+    @Update
+    void updateDie(Dice die);
 }
