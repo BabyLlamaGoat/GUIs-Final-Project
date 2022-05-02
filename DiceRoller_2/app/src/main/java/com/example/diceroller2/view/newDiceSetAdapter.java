@@ -19,12 +19,13 @@ import com.example.diceroller2.viewmodel.diceViewModel;
 
 public class newDiceSetAdapter extends RecyclerView.Adapter<newDiceSetAdapter.newDiceSetViewHolder> {
 
-    ObservableArrayList<Dice> dice;
+    ObservableArrayList<Dice> dice = new ObservableArrayList<>();
     diceViewModel viewModel;
 
-    public newDiceSetAdapter(ObservableArrayList<Dice> newDiceSet, diceViewModel diceViewModel) {
-        this.dice = newDiceSet;
+    public newDiceSetAdapter(ObservableArrayList<Dice> newDiceList, diceViewModel diceViewModel) {
+        this.dice.addAll(newDiceList);
         this.viewModel = diceViewModel;
+        System.out.println("DiceList in Adaptor is " + dice.toString());
         dice.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<Dice>>() {
             @Override
             public void onChanged(ObservableList<Dice> sender) {

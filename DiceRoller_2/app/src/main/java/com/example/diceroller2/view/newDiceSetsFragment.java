@@ -33,25 +33,25 @@ public class newDiceSetsFragment extends Fragment {
         System.out.println("DiceSetID in newDiceSetsFragment is " + diceSetID);
 
 
-        diceViewModel diceViewModel = new ViewModelProvider(this).get(diceViewModel.class);
-        diceSetViewModel diceSetViewModel = new ViewModelProvider(this).get(diceSetViewModel.class);
+        diceViewModel diceVM = new ViewModelProvider(this).get(diceViewModel.class);
+        diceSetViewModel diceSetVM = new ViewModelProvider(this).get(diceSetViewModel.class);
 
         view.findViewById(R.id.newDiceButton).setOnClickListener(button ->{
             System.out.println("Adding new Dice");
             System.out.println(diceSetID);
-            diceViewModel.addDice(diceSetID);
+            diceVM.addDice(diceSetID);
         });
 
         EditText setTitle = view.findViewById(R.id.setTitleInput);
         EditText setDescriptor = view.findViewById(R.id.setDescriptorInput);
 
         view.findViewById(R.id.saveDiceSetButton).setOnClickListener(button ->{
-            diceSetViewModel.saveDiceSet(diceSetID, setTitle.getText().toString(), setDescriptor.getText().toString());
+            diceSetVM.saveDiceSet(diceSetID, setTitle.getText().toString(), setDescriptor.getText().toString());
             NavHostFragment.findNavController(this).popBackStack();
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.diceRecyclerView);
-        recyclerView.setAdapter(new newDiceSetAdapter(diceViewModel.getDiceList(diceSetID), diceViewModel));
+        recyclerView.setAdapter(new newDiceSetAdapter(diceVM.getDiceList(diceSetID), diceVM));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 

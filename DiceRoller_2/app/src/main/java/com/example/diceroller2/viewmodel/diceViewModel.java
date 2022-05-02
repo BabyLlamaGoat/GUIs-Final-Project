@@ -23,8 +23,8 @@ public class diceViewModel extends ViewModel {
 
 
     public ObservableArrayList<Dice> getDiceList(long diceSetID) {
-        this.dice.clear();
-        this.repository.getDice(diceSetID, Dice ->{
+        dice.clear();
+        repository.getDice(diceSetID, Dice ->{
             System.out.println("DiceList in callBack is " + Dice.toString());
             diceViewModel.this.dice.addAll(Dice);
         });

@@ -33,7 +33,6 @@ public class diceSetViewModel extends ViewModel {
         });
         System.out.println("DiceSets in ViewModel are  " + diceSets);
         return this.diceSets;
-
     }
 
 
@@ -42,6 +41,7 @@ public class diceSetViewModel extends ViewModel {
             diceSets.add(newDiceSet);
             diceSetViewModel.this.newestDiceSetID = newDiceSet.diceSetID;
             this.newestDiceSet = newDiceSet;
+            System.out.println("CreateNewDiceSet diceSetViewModel the correct id is " + newDiceSet.diceSetID);
         });
         return newestDiceSetID;
     }
